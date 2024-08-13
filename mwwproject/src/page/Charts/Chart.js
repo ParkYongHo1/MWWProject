@@ -1,8 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Line } from "react-chartjs-2";
-import { ResponsivePie } from "@nivo/pie";
-import generateData from "./generateData";
-import pieData from "./pieData";
+import GenerateData from "./GenerateData";
 import Wrapper from "./css/Wrapper";
 import Button from "../../layout/css/Button";
 import ButtonDiv from "./css/ButtonDIv";
@@ -26,9 +24,20 @@ ChartJS.register(
   Tooltip,
   Legend
 );
+
 function Chart() {
   const [activeTab, setActiveTab] = useState("daily");
-  const data = generateData(activeTab);
+  const [chartData, setChartData] = useState({ labels: [], datasets: [] });
+
+  useEffect(() => {
+    // Fetch data whenever activeTab changes
+    const fetchData = async () => {
+      const data = await GenerateData(activeTab);
+      setChartData(data);
+    };
+
+    fetchData();
+  }, [activeTab]);
 
   const options = {
     responsive: true,
@@ -47,33 +56,19 @@ function Chart() {
     <div>
       <ButtonDiv>
         <Button onClick={() => setActiveTab("daily")}>일별</Button>
-        <Button onClick={() => setActiveTab("monthly")}>월별</Button>
-        <Button onClick={() => setActiveTab("yearly")}>연별</Button>
       </ButtonDiv>
       <Wrapper>
         <div
           style={{
             width: "50%",
             backgroundColor: "white",
-
             margin: "0 auto",
             borderRadius: "5px",
             padding: "30px 30px",
           }}
         >
-          <Line options={options} data={data} />
+          <Line options={options} data={chartData} />
         </div>
-        {/**  <div
-          style={{
-            width: "100%",
-            height: "700px",
-            backgroundColor: "white",
-            margin: "0 auto",
-            borderRadius: "5px",
-          }}
-        >
-          <ResponsivePie data={pieData} />
-        </div>*/}
       </Wrapper>
     </div>
   );

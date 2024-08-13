@@ -1,15 +1,57 @@
-// Server 작성
 const express = require("express");
 const cors = require("cors");
+const mysql = require("mysql2/promise");
 const app = express();
 const server = require("http").createServer(app);
 
-// CORS 사용
+// Create a connection pool
+const pool = mysql.createPool({
+  host: "localhost",
+  user: "root",
+  password: "password",
+  database: "chart",
+  port: 3307,
+});
+
+// Middleware
 app.use(cors());
-// API로 요청한 경우 hello 메시지를 보내는 콜백 함수를 넣습니다.
-app.use(express.json()); // JSON 파싱을 위해 추가
-app.get("/api/user", (req, res) => {
-  res.send({ message: "user" });
+app.use(express.json()); // JSON parsing
+app.post("/api/insert", async (req, res) => {
+  try {
+    const currentTime = new Date(); // Get the current timestamp
+    let query = "";
+    let params = [];
+
+    if (req.body.modifyCheck == "NOT ADDRESS") {
+      query = `INSERT INTO chart (abnormal_speech, incorrect_address_changes, correct_address_changes, timestamp) VALUES (?, ?, ?, ?)`;
+      params = [1, 0, 0, currentTime];
+    } else if (req.body.modifyCheck == "NO MODIFY") {
+      query = `INSERT INTO chart (abnormal_speech, incorrect_address_changes, correct_address_changes, timestamp) VALUES (?, ?, ?, ?)`;
+      params = [0, 1, 0, currentTime];
+    } else {
+      console.log("init");
+      query = `INSERT INTO chart (abnormal_speech, incorrect_address_changes, correct_address_changes, timestamp) VALUES (?, ?, ?, ?)`;
+      params = [0, 0, 1, currentTime];
+    }
+
+    await pool.query(query, params);
+    res.json(req.body.modifyCheck);
+  } catch (err) {
+    console.error("데이터 삽입 실패:", err);
+    res.status(500).send("서버 오류");
+  }
+});
+
+// /api/user endpoint
+app.get("/api/user", async (req, res) => {
+  try {
+    const [results] = await pool.query("SELECT * FROM chart");
+    console.log(results);
+    res.json(results);
+  } catch (err) {
+    console.error("데이터 조회 실패:", err);
+    res.status(500).send("서버 오류");
+  }
 });
 
 app.post("/auth/kakaologin", (req, res) => {
@@ -18,7 +60,7 @@ app.post("/auth/kakaologin", (req, res) => {
   res.send({ received: true, nickname: nickname });
 });
 
-// 서버가 잘 동작하고 있는지 확인
+// Start the server
 server.listen(8080, () => {
   console.log("server is running on 8080");
 });
