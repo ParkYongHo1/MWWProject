@@ -7,15 +7,6 @@ import axios from "axios";
 import { KAKAO_AUTH_URL } from "../../OAuth/OAuth";
 
 function Login() {
-  const handleSubmit = async () => {
-    try {
-      const res = await axios.get("/auth/google");
-      console.log(res);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   return (
     <Wrapper>
       <Title>로그인</Title>
