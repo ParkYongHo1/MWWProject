@@ -11,6 +11,8 @@ const Header = () => {
   const [isLggdeIn, setIsLoggedIn] = useState(false);
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user);
+  console.log(user);
+
   const handleLogout = () => {
     dispatch(logout());
   };
@@ -27,7 +29,14 @@ const Header = () => {
               <Button to="login">로그인</Button>
             </ButtonDiv>
           ) : (
-            <div>{user.nickname}</div>
+            <>
+              <div>{user.nickname}</div>
+              <ButtonDiv>
+                <Button to="login" onClick={handleLogout}>
+                  로그아웃
+                </Button>
+              </ButtonDiv>
+            </>
           )}
         </Container>
       </Wrapper>

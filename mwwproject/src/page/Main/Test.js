@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import Wrapper from "../Main/css/Wrapper";
+import Wrapper from "./css/Wrapper";
 import Container from "./Container";
 import Box from "./Box";
-import FlexDiv from "../Main/css/FlexDiv";
-import P from "../Main/css/P";
+import FlexDiv from "./css/FlexDiv";
+import P from "./css/P";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChartLine } from "@fortawesome/free-solid-svg-icons";
 import ApexCharts from "react-apexcharts"; // Ensure you have this dependency installed
