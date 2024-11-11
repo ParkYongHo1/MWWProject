@@ -2,9 +2,12 @@ const { createProxyMiddleware } = require("http-proxy-middleware");
 
 module.exports = function (app) {
   app.use(
-    createProxyMiddleware("/api", {
-      target: "http://localhost:8080/",
-      changrOrigin: true,
+    createProxyMiddleware("/apis", {
+      target: "https://v2.coginsight.net",
+      changeOrigin: true,
+      pathRewrite: {
+        "^/apis": "/apis",
+      },
     })
   );
 };
