@@ -13,8 +13,8 @@ const TotalData = () => {
   };
 
   return (
-    <div style={{ padding: "20px", margin: "0 auto", width: "70%" }}>
-      <h2>당일 데이터 시나리오 별 통계</h2>
+    <>
+      <h2>시나리오 사용 및 결과 현황</h2>
       {data.length > 0 ? (
         <>
           <table
@@ -41,7 +41,16 @@ const TotalData = () => {
                   <td style={styles.td}>{scenarioName}</td>
                   <td style={styles.td}>
                     <span style={{ fontSize: "20px", fontWeight: "700" }}>
-                      {stats.total}
+                      {stats.total}{" "}
+                    </span>
+                    <span
+                      style={{
+                        fontSize: "20px",
+                        fontWeight: "700",
+                        color: "#0000ff5e",
+                      }}
+                    >
+                      ({stats.totalPercent}%)
                     </span>
                   </td>
                   <td
@@ -49,7 +58,16 @@ const TotalData = () => {
                     onClick={() => handleNavigate(scenarioName, "success")}
                   >
                     <span style={{ fontSize: "20px", fontWeight: "700" }}>
-                      {stats.success}
+                      {stats.success}{" "}
+                    </span>
+                    <span
+                      style={{
+                        fontSize: "20px",
+                        fontWeight: "700",
+                        color: "#0000ff5e",
+                      }}
+                    >
+                      ({stats.successPercent}%)
                     </span>
                   </td>
                   <td
@@ -57,7 +75,16 @@ const TotalData = () => {
                     onClick={() => handleNavigate(scenarioName, "transfer")}
                   >
                     <span style={{ fontSize: "20px", fontWeight: "700" }}>
-                      {stats.transfer}
+                      {stats.transfer}{" "}
+                    </span>
+                    <span
+                      style={{
+                        fontSize: "20px",
+                        fontWeight: "700",
+                        color: "#0000ff5e",
+                      }}
+                    >
+                      ({stats.transferPercent}%)
                     </span>
                   </td>
                   <td
@@ -65,7 +92,16 @@ const TotalData = () => {
                     onClick={() => handleNavigate(scenarioName, "abandon")}
                   >
                     <span style={{ fontSize: "20px", fontWeight: "700" }}>
-                      {stats.abandon}
+                      {stats.abandon}{" "}
+                    </span>
+                    <span
+                      style={{
+                        fontSize: "20px",
+                        fontWeight: "700",
+                        color: "#0000ff5e",
+                      }}
+                    >
+                      ({stats.abandonPercent}%)
                     </span>
                   </td>
                   <td
@@ -73,20 +109,27 @@ const TotalData = () => {
                     onClick={() => handleNavigate(scenarioName, "fail")}
                   >
                     <span style={{ fontSize: "20px", fontWeight: "700" }}>
-                      {stats.fail}
+                      {stats.fail}{" "}
+                    </span>
+                    <span
+                      style={{
+                        fontSize: "20px",
+                        fontWeight: "700",
+                        color: "#0000ff5e",
+                      }}
+                    >
+                      ({stats.failPercent}%)
                     </span>
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
-          <h3 style={{ marginTop: "40px" }}>비율 통계</h3>
-          <RatioData statistics={statistics} /> {/* RatioTable 컴포넌트 사용 */}
         </>
       ) : (
         <p>오늘 데이터가 없습니다.</p>
       )}
-    </div>
+    </>
   );
 };
 

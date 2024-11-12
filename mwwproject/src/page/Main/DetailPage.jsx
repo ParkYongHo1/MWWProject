@@ -1,8 +1,6 @@
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import useEsdData from "../../hooks/useEsdData";
-import useLoadMessageLog from "../../hooks/useLoadMessageLog"; // useLoadMessageLog 추가
-import ChatLog from "./ChatLog";
 
 const DetailPage = () => {
   const { state } = useLocation();
@@ -41,7 +39,7 @@ const DetailPage = () => {
             <thead>
               <tr style={{ backgroundColor: "#f0f0f0" }}>
                 <th style={styles.th}>SessionId</th>
-                <th style={styles.th}>Scenario Key</th>
+                <th style={styles.th}>사고접수번호</th>
               </tr>
             </thead>
             <tbody>

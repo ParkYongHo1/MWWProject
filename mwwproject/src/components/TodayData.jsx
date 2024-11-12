@@ -15,7 +15,7 @@ const TodayData = ({ data, startIndex }) => {
         <tr style={{ backgroundColor: "#f0f0f0" }}>
           <th style={styles.th}>순번</th>
           <th style={styles.th}>SessionId</th>
-          <th style={styles.th}>Scenario Key</th>
+          <th style={styles.th}>사고접수번호</th>
           <th style={styles.th}>Scenario Name</th>
           <th style={styles.th}>Channel</th>
           <th style={styles.th}>Call Use Time</th>

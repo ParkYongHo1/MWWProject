@@ -29,7 +29,6 @@ const useEsdData = () => {
             .split("T")[0];
           return createdAtDate === todayString;
         });
-        console.log("filteredData===" + filteredData);
 
         setData(filteredData); // 필터링된 데이터 상태에 저장
       } catch (error) {

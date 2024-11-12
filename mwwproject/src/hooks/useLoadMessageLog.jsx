@@ -25,7 +25,6 @@ const useLoadMessageLog = () => {
             params: { fromDate, toDate, _pageSize: 10000 },
           }
         );
-        console.log(response.data);
         const uniqueSessionIds = new Set();
         const filteredLogs = response.data.result.filter((item) => {
           if (!uniqueSessionIds.has(item.sessionId)) {

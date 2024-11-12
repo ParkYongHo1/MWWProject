@@ -48,7 +48,6 @@ const ChatLog = () => {
           if (historyUrl) {
             setChatURL(`https://v2.coginsight.net${historyUrl}`);
           }
-          console.log(response.data);
         } catch (error) {
           console.error("Error fetching chatbot data", error);
         }
