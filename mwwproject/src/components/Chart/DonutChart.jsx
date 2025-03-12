@@ -26,12 +26,9 @@ const DonutChart = () => {
         acc[6] += stats.over; // 캠페인 기간 Over
         acc[7] += stats.birth; // 생년월일 인증 오류
         acc[8] += stats.notInfo; // 상세조회시 결과없음
-        acc[9] += stats.errInfo; // 전문오류
-        acc[10] += stats.errMWW; // coginsight 다이얼로그 오류
-        acc[11] += stats.emergency; // 시나리오 긴급 정지 상태
         return acc;
       },
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+      [0, 0, 0, 0, 0, 0, 0, 0, 0]
     );
 
   const scenarioOptions = {
@@ -51,9 +48,6 @@ const DonutChart = () => {
       "캠페인 기간 Over",
       "생년월일 인증 오류",
       "상세조회시 결과없음",
-      "전문오류",
-      "coginsight 다이얼로그 오류",
-      "시나리오 긴급 정지 상태",
     ],
   };
 

@@ -16,9 +16,6 @@ const useScenarioStatistics = (data) => {
         over: 0,
         birth: 0,
         notInfo: 0,
-        errInfo: 0,
-        errMWW: 0,
-        emergency: 0,
       },
       실효예고: {
         total: 0,
@@ -31,9 +28,6 @@ const useScenarioStatistics = (data) => {
         over: 0,
         birth: 0,
         notInfo: 0,
-        errInfo: 0,
-        errMWW: 0,
-        emergency: 0,
       },
       월대체보험안내: {
         total: 0,
@@ -46,9 +40,6 @@ const useScenarioStatistics = (data) => {
         over: 0,
         birth: 0,
         notInfo: 0,
-        errInfo: 0,
-        errMWW: 0,
-        emergency: 0,
       },
       안내장반송: {
         total: 0,
@@ -61,9 +52,6 @@ const useScenarioStatistics = (data) => {
         over: 0,
         birth: 0,
         notInfo: 0,
-        errInfo: 0,
-        errMWW: 0,
-        emergency: 0,
       },
       스마트레터: {
         total: 0,
@@ -76,9 +64,6 @@ const useScenarioStatistics = (data) => {
         over: 0,
         birth: 0,
         notInfo: 0,
-        errInfo: 0,
-        errMWW: 0,
-        emergency: 0,
       },
       "총 개수": {
         total: 0,
@@ -91,9 +76,6 @@ const useScenarioStatistics = (data) => {
         over: 0,
         birth: 0,
         notInfo: 0,
-        errInfo: 0,
-        errMWW: 0,
-        emergency: 0,
       },
     };
 
@@ -138,18 +120,6 @@ const useScenarioStatistics = (data) => {
           case "08":
             scenarioStats[scenarioName].notInfo += 1;
             scenarioStats["총 개수"].notInfo += 1; // 상세조회시 결과없음
-            break;
-          case "90":
-            scenarioStats[scenarioName].errInfo += 1;
-            scenarioStats["총 개수"].errInfo += 1; // 전문오류
-            break;
-          case "91":
-            scenarioStats[scenarioName].errMWW += 1;
-            scenarioStats["총 개수"].errMWW += 1; // coginsight 다이얼로그 오류
-            break;
-          case "92":
-            scenarioStats[scenarioName].emergency += 1;
-            scenarioStats["총 개수"].emergency += 1; // 시나리오 긴급 정지 상태
             break;
 
           default:
@@ -201,18 +171,6 @@ const useScenarioStatistics = (data) => {
           (scenarioStats[scenario].notInfo / total) *
           100
         ).toFixed(1);
-        scenarioStats[scenario].errInfoPercent = (
-          (scenarioStats[scenario].errInfo / total) *
-          100
-        ).toFixed(1);
-        scenarioStats[scenario].errMWWPercent = (
-          (scenarioStats[scenario].errMWW / total) *
-          100
-        ).toFixed(1);
-        scenarioStats[scenario].emergencyPercent = (
-          (scenarioStats[scenario].emergency / total) *
-          100
-        ).toFixed(1);
       } else {
         scenarioStats[scenario].successPercent = "0.0";
         scenarioStats[scenario].failPercent = "0.0";
@@ -223,9 +181,6 @@ const useScenarioStatistics = (data) => {
         scenarioStats[scenario].overPercent = "0.0";
         scenarioStats[scenario].birthPercent = "0.0";
         scenarioStats[scenario].notInfoPercent = "0.0";
-        scenarioStats[scenario].errInfoPercent = "0.0";
-        scenarioStats[scenario].errMWWPercent = "0.0";
-        scenarioStats[scenario].emergencyPercent = "0.0";
       }
 
       // 총 개수에 대한 퍼센트 계산
