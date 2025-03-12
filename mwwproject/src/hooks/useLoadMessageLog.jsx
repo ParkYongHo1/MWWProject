@@ -8,9 +8,9 @@ const useLoadMessageLog = () => {
 
   useEffect(() => {
     const handleTest = async () => {
-      if (error) return; // Prevent making the request if there's an existing error
+      if (error) return;
       const today = new Date();
-      const todayString = today.toISOString().split("T")[0]; // YYYY-MM-DD
+      const todayString = today.toISOString().split("T")[0];
       const fromDate = `${todayString} 00:00:00`;
       const toDate = `${todayString} 23:59:59`;
       try {

@@ -18,9 +18,8 @@ const useEsdData = () => {
           },
         });
 
-        // 오늘 날짜 구하기
         const today = new Date();
-        const todayString = today.toISOString().split("T")[0]; // YYYY-MM-DD 형식
+        const todayString = today.toISOString().split("T")[0];
 
         // 오늘 날짜에 해당하는 데이터 필터링
         const filteredData = response.data.result.filter((item) => {
@@ -30,7 +29,7 @@ const useEsdData = () => {
           return createdAtDate === todayString;
         });
 
-        setData(filteredData); // 필터링된 데이터 상태에 저장
+        setData(filteredData);
       } catch (error) {
         console.error(error); // 에러 처리
       }
@@ -39,8 +38,8 @@ const useEsdData = () => {
     // 처음 데이터 로드
     handleTest();
 
-    // 요청을 10초마다 실행하는 interval 설정
-    const intervalId = setInterval(handleTest, 10000);
+    // 요청을 1분마다 실행하는 interval 설정
+    const intervalId = setInterval(handleTest, 60000);
 
     // 컴포넌트 언마운트 시 interval 클리어
     return () => clearInterval(intervalId);

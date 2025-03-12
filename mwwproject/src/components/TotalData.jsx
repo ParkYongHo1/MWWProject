@@ -1,7 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import useEsdData from "../hooks/useEsdData";
 import useScenarioStatistics from "../hooks/useScenarioStatistics";
-import RatioData from "./RatioData";
 
 const TotalData = () => {
   const { data } = useEsdData();
@@ -29,10 +28,18 @@ const TotalData = () => {
               <tr style={{ backgroundColor: "#f0f0f0" }}>
                 <th style={styles.th}>시나리오명</th>
                 <th style={styles.th}>누적갯수</th>
-                <th style={styles.th}>성공</th>
-                <th style={styles.th}>호전환</th>
-                <th style={styles.th}>포기</th>
+                <th style={styles.th}>통화성공</th>
                 <th style={styles.th}>실패</th>
+                <th style={styles.th}>포기</th>
+                <th style={styles.th}>무응답</th>
+                <th style={styles.th}>데이터 필수값 누락</th>
+                <th style={styles.th}>XO에서 완료처리</th>
+                <th style={styles.th}>캠페인 기간 Over</th>
+                <th style={styles.th}>생년월일 인증 오류</th>
+                <th style={styles.th}>상세조회시 결과없음</th>
+                <th style={styles.th}>전문오류</th>
+                <th style={styles.th}>coginsight 다이얼로그 오류</th>
+                <th style={styles.th}>시나리오 긴급 정지 상태</th>
               </tr>
             </thead>
             <tbody>
@@ -72,10 +79,10 @@ const TotalData = () => {
                   </td>
                   <td
                     style={styles.td}
-                    onClick={() => handleNavigate(scenarioName, "transfer")}
+                    onClick={() => handleNavigate(scenarioName, "fail")}
                   >
                     <span style={{ fontSize: "20px", fontWeight: "700" }}>
-                      {stats.transfer}{" "}
+                      {stats.fail}{" "}
                     </span>
                     <span
                       style={{
@@ -84,7 +91,7 @@ const TotalData = () => {
                         color: "#0000ff5e",
                       }}
                     >
-                      ({stats.transferPercent}%)
+                      ({stats.failPercent}%)
                     </span>
                   </td>
                   <td
@@ -109,7 +116,7 @@ const TotalData = () => {
                     onClick={() => handleNavigate(scenarioName, "fail")}
                   >
                     <span style={{ fontSize: "20px", fontWeight: "700" }}>
-                      {stats.fail}{" "}
+                      {stats.noResponse}{" "}
                     </span>
                     <span
                       style={{
@@ -118,7 +125,143 @@ const TotalData = () => {
                         color: "#0000ff5e",
                       }}
                     >
-                      ({stats.failPercent}%)
+                      ({stats.noResponsePercent}%)
+                    </span>
+                  </td>
+                  <td
+                    style={styles.td}
+                    onClick={() => handleNavigate(scenarioName, "success")}
+                  >
+                    <span style={{ fontSize: "20px", fontWeight: "700" }}>
+                      {stats.essential}{" "}
+                    </span>
+                    <span
+                      style={{
+                        fontSize: "20px",
+                        fontWeight: "700",
+                        color: "#0000ff5e",
+                      }}
+                    >
+                      ({stats.essentialPercent}%)
+                    </span>
+                  </td>
+                  <td
+                    style={styles.td}
+                    onClick={() => handleNavigate(scenarioName, "success")}
+                  >
+                    <span style={{ fontSize: "20px", fontWeight: "700" }}>
+                      {stats.done}{" "}
+                    </span>
+                    <span
+                      style={{
+                        fontSize: "20px",
+                        fontWeight: "700",
+                        color: "#0000ff5e",
+                      }}
+                    >
+                      ({stats.donePercent}%)
+                    </span>
+                  </td>
+                  <td
+                    style={styles.td}
+                    onClick={() => handleNavigate(scenarioName, "success")}
+                  >
+                    <span style={{ fontSize: "20px", fontWeight: "700" }}>
+                      {stats.over}{" "}
+                    </span>
+                    <span
+                      style={{
+                        fontSize: "20px",
+                        fontWeight: "700",
+                        color: "#0000ff5e",
+                      }}
+                    >
+                      ({stats.overPercent}%)
+                    </span>
+                  </td>
+                  <td
+                    style={styles.td}
+                    onClick={() => handleNavigate(scenarioName, "success")}
+                  >
+                    <span style={{ fontSize: "20px", fontWeight: "700" }}>
+                      {stats.birth}{" "}
+                    </span>
+                    <span
+                      style={{
+                        fontSize: "20px",
+                        fontWeight: "700",
+                        color: "#0000ff5e",
+                      }}
+                    >
+                      ({stats.birthPercent}%)
+                    </span>
+                  </td>
+                  <td
+                    style={styles.td}
+                    onClick={() => handleNavigate(scenarioName, "success")}
+                  >
+                    <span style={{ fontSize: "20px", fontWeight: "700" }}>
+                      {stats.notInfo}{" "}
+                    </span>
+                    <span
+                      style={{
+                        fontSize: "20px",
+                        fontWeight: "700",
+                        color: "#0000ff5e",
+                      }}
+                    >
+                      ({stats.notInfoPercent}%)
+                    </span>
+                  </td>
+                  <td
+                    style={styles.td}
+                    onClick={() => handleNavigate(scenarioName, "success")}
+                  >
+                    <span style={{ fontSize: "20px", fontWeight: "700" }}>
+                      {stats.errInfo}{" "}
+                    </span>
+                    <span
+                      style={{
+                        fontSize: "20px",
+                        fontWeight: "700",
+                        color: "#0000ff5e",
+                      }}
+                    >
+                      ({stats.errInfoPercent}%)
+                    </span>
+                  </td>
+                  <td
+                    style={styles.td}
+                    onClick={() => handleNavigate(scenarioName, "success")}
+                  >
+                    <span style={{ fontSize: "20px", fontWeight: "700" }}>
+                      {stats.errMWW}{" "}
+                    </span>
+                    <span
+                      style={{
+                        fontSize: "20px",
+                        fontWeight: "700",
+                        color: "#0000ff5e",
+                      }}
+                    >
+                      ({stats.errMWWPercent}%)
+                    </span>
+                  </td>
+                  <td
+                    style={styles.td}
+                    onClick={() => handleNavigate(scenarioName, "success")}
+                  >
+                    <span style={{ fontSize: "20px", fontWeight: "700" }}>
+                      {stats.emergency}{" "}
+                    </span>
+                    <span
+                      style={{
+                        fontSize: "20px",
+                        fontWeight: "700",
+                        color: "#0000ff5e",
+                      }}
+                    >
+                      ({stats.emergency}%)
                     </span>
                   </td>
                 </tr>

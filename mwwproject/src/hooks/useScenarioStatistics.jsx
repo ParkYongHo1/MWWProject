@@ -5,59 +5,153 @@ const useScenarioStatistics = (data) => {
 
   useEffect(() => {
     const scenarioStats = {
-      보상담당자안내: {
+      해피콜: {
         total: 0,
         success: 0,
-        transfer: 0,
-        abandon: 0,
         fail: 0,
+        abandon: 0,
+        noResponse: 0,
+        essential: 0,
+        done: 0,
+        over: 0,
+        birth: 0,
+        notInfo: 0,
+        errInfo: 0,
+        errMWW: 0,
+        emergency: 0,
       },
-      각종서류발급문의: {
+      실효예고: {
         total: 0,
         success: 0,
-        transfer: 0,
-        abandon: 0,
         fail: 0,
+        abandon: 0,
+        noResponse: 0,
+        essential: 0,
+        done: 0,
+        over: 0,
+        birth: 0,
+        notInfo: 0,
+        errInfo: 0,
+        errMWW: 0,
+        emergency: 0,
       },
-      진료비내역서발급: {
+      월대체보험안내: {
         total: 0,
         success: 0,
-        transfer: 0,
-        abandon: 0,
         fail: 0,
+        abandon: 0,
+        noResponse: 0,
+        essential: 0,
+        done: 0,
+        over: 0,
+        birth: 0,
+        notInfo: 0,
+        errInfo: 0,
+        errMWW: 0,
+        emergency: 0,
       },
-      계약조회: { total: 0, success: 0, transfer: 0, abandon: 0, fail: 0 },
+      안내장반송: {
+        total: 0,
+        success: 0,
+        fail: 0,
+        abandon: 0,
+        noResponse: 0,
+        essential: 0,
+        done: 0,
+        over: 0,
+        birth: 0,
+        notInfo: 0,
+        errInfo: 0,
+        errMWW: 0,
+        emergency: 0,
+      },
+      스마트레터: {
+        total: 0,
+        success: 0,
+        fail: 0,
+        abandon: 0,
+        noResponse: 0,
+        essential: 0,
+        done: 0,
+        over: 0,
+        birth: 0,
+        notInfo: 0,
+        errInfo: 0,
+        errMWW: 0,
+        emergency: 0,
+      },
       "총 개수": {
         total: 0,
         success: 0,
-        transfer: 0,
-        abandon: 0,
         fail: 0,
+        abandon: 0,
+        noResponse: 0,
+        essential: 0,
+        done: 0,
+        over: 0,
+        birth: 0,
+        notInfo: 0,
+        errInfo: 0,
+        errMWW: 0,
+        emergency: 0,
       },
     };
 
     data.forEach((item) => {
-      const scenarioName = item.ScenarioName;
+      const scenarioName = item.CampaignName;
       if (scenarioStats[scenarioName]) {
         scenarioStats[scenarioName].total += 1;
-        scenarioStats["총 개수"].total += 1; // 총 개수에 1 추가
-        switch (item.ScenarioEndCode) {
+        scenarioStats["총 개수"].total += 1;
+        switch (item.ScenarioEndResult2) {
           case "00":
-            scenarioStats[scenarioName].fail += 1;
-            scenarioStats["총 개수"].fail += 1; // 총 개수에 실패 추가
+            scenarioStats[scenarioName].success += 1;
+            scenarioStats["총 개수"].success += 1; // 통화성공
             break;
           case "01":
-            scenarioStats[scenarioName].success += 1;
-            scenarioStats["총 개수"].success += 1; // 총 개수에 성공 추가
+            scenarioStats[scenarioName].fail += 1;
+            scenarioStats["총 개수"].fail += 1; // 실패
             break;
           case "02":
-            scenarioStats[scenarioName].transfer += 1;
-            scenarioStats["총 개수"].transfer += 1; // 총 개수에 전환 추가
+            scenarioStats[scenarioName].abandon += 1;
+            scenarioStats["총 개수"].abandon += 1; // 포기
             break;
           case "03":
-            scenarioStats[scenarioName].abandon += 1;
-            scenarioStats["총 개수"].abandon += 1; // 총 개수에 포기 추가
+            scenarioStats[scenarioName].noResponse += 1;
+            scenarioStats["총 개수"].noResponse += 1; // 무응답
             break;
+          case "04":
+            scenarioStats[scenarioName].essential += 1;
+            scenarioStats["총 개수"].essential += 1; // 데이터 필수값 누락
+            break;
+          case "05":
+            scenarioStats[scenarioName].done += 1;
+            scenarioStats["총 개수"].done += 1; // XO에서 완료처리
+            break;
+          case "06":
+            scenarioStats[scenarioName].over += 1;
+            scenarioStats["총 개수"].over += 1; // 캠페인 기간 Over
+            break;
+          case "07":
+            scenarioStats[scenarioName].birth += 1;
+            scenarioStats["총 개수"].birth += 1; // 생년월일 인증 오류
+            break;
+          case "08":
+            scenarioStats[scenarioName].notInfo += 1;
+            scenarioStats["총 개수"].notInfo += 1; // 상세조회시 결과없음
+            break;
+          case "90":
+            scenarioStats[scenarioName].errInfo += 1;
+            scenarioStats["총 개수"].errInfo += 1; // 전문오류
+            break;
+          case "91":
+            scenarioStats[scenarioName].errMWW += 1;
+            scenarioStats["총 개수"].errMWW += 1; // coginsight 다이얼로그 오류
+            break;
+          case "92":
+            scenarioStats[scenarioName].emergency += 1;
+            scenarioStats["총 개수"].emergency += 1; // 시나리오 긴급 정지 상태
+            break;
+
           default:
             break;
         }
@@ -69,28 +163,69 @@ const useScenarioStatistics = (data) => {
 
     for (const scenario in scenarioStats) {
       const total = scenarioStats[scenario].total;
+
       if (total > 0) {
         scenarioStats[scenario].successPercent = (
           (scenarioStats[scenario].success / total) *
-          100
-        ).toFixed(1);
-        scenarioStats[scenario].transferPercent = (
-          (scenarioStats[scenario].transfer / total) *
-          100
-        ).toFixed(1);
-        scenarioStats[scenario].abandonPercent = (
-          (scenarioStats[scenario].abandon / total) *
           100
         ).toFixed(1);
         scenarioStats[scenario].failPercent = (
           (scenarioStats[scenario].fail / total) *
           100
         ).toFixed(1);
+        scenarioStats[scenario].abandonPercent = (
+          (scenarioStats[scenario].abandon / total) *
+          100
+        ).toFixed(1);
+        scenarioStats[scenario].noResponsePercent = (
+          (scenarioStats[scenario].noResponse / total) *
+          100
+        ).toFixed(1);
+        scenarioStats[scenario].essentialPercent = (
+          (scenarioStats[scenario].essential / total) *
+          100
+        ).toFixed(1);
+        scenarioStats[scenario].donePercent = (
+          (scenarioStats[scenario].done / total) *
+          100
+        ).toFixed(1);
+        scenarioStats[scenario].overPercent = (
+          (scenarioStats[scenario].over / total) *
+          100
+        ).toFixed(1);
+        scenarioStats[scenario].birthPercent = (
+          (scenarioStats[scenario].birth / total) *
+          100
+        ).toFixed(1);
+        scenarioStats[scenario].notInfoPercent = (
+          (scenarioStats[scenario].notInfo / total) *
+          100
+        ).toFixed(1);
+        scenarioStats[scenario].errInfoPercent = (
+          (scenarioStats[scenario].errInfo / total) *
+          100
+        ).toFixed(1);
+        scenarioStats[scenario].errMWWPercent = (
+          (scenarioStats[scenario].errMWW / total) *
+          100
+        ).toFixed(1);
+        scenarioStats[scenario].emergencyPercent = (
+          (scenarioStats[scenario].emergency / total) *
+          100
+        ).toFixed(1);
       } else {
         scenarioStats[scenario].successPercent = "0.0";
-        scenarioStats[scenario].transferPercent = "0.0";
-        scenarioStats[scenario].abandonPercent = "0.0";
         scenarioStats[scenario].failPercent = "0.0";
+        scenarioStats[scenario].abandonPercent = "0.0";
+        scenarioStats[scenario].noResponsePercent = "0.0";
+        scenarioStats[scenario].essentialPercent = "0.0";
+        scenarioStats[scenario].donePercent = "0.0";
+        scenarioStats[scenario].overPercent = "0.0";
+        scenarioStats[scenario].birthPercent = "0.0";
+        scenarioStats[scenario].notInfoPercent = "0.0";
+        scenarioStats[scenario].errInfoPercent = "0.0";
+        scenarioStats[scenario].errMWWPercent = "0.0";
+        scenarioStats[scenario].emergencyPercent = "0.0";
       }
 
       // 총 개수에 대한 퍼센트 계산
